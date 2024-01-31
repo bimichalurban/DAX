@@ -1,0 +1,26 @@
+MaxMin = 
+
+VAR Sales = [Your_aggregatoion_measure]
+
+VAR MaxSalesOverall = 
+  MAXX(
+        ALLSELECTED('dimDate'[Year], 'dimDate'[Quarter], 'dimDate'[Quarter No],...
+        CALCULATE([Your_aggregatoion_measure])
+  )
+
+VAR MinSalesOverall = 
+  MINX(
+        ALLSELECTED('dimDate'[Year], 'dimDate'[Quarter], 'dimDate'[Quarter No],...
+        CALCULATE([Your_aggregatoion_measure])
+  )
+
+VAR Result = 
+  SWITCH(
+    TRUE,
+    Sales = MaxSalesOverall, "#22957e",
+    Sales = MinSalesOverall, "#ff908c",
+    "#7bc8fe"
+  )
+
+  RETURN
+  Result
